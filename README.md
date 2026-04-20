@@ -1,21 +1,21 @@
 # House Prices: Advanced Regression Techniques
-## Wykorzystałem zbiór danych ze strony kaggle z konkurencji: House Prices - Advanced Regression Techniques
-## Przegląd Projektu
-Celem tego projektu jest stworzenie modelu uczenia maszynowego przewidującego ceny nieruchomości na podstawie zestawu różnorodnych cech. Projekt stanowi praktyczne zastosowanie technik regresji oraz inżynierii cech (Feature Engineering) w języku Python.
+## I used a dataset from the Kaggle competition: House Prices - Advanced Regression Techniques
+## Project Overview
+The goal of this project is to create a machine learning model that predicts real estate prices based on a set of diverse features. The project serves as a practical application of regression techniques and feature engineering in Python.
 
-Głównym wyzwaniem było obsłużenie dużej liczby różnorodnych zmiennych (zarówno numerycznych, jak i kategorycznych) oraz zidentyfikowanie kluczowych czynników wpływających na wycenę rynkową domu.
+The main challenge was handling a large number of diverse variables (both numerical and categorical) and identifying the key factors influencing a home’s market value.
 
-# Technologie i Narzędzia
-W projekcie wykorzystano następujące biblioteki Data Science:
-* Pandas / NumPy: Manipulacja danymi, czyszczenie i operacje na ramkach danych.
-* Scikit-learn: Budowa modeli regresyjnych, preprocessing danych oraz walidacja.
-* Matplotlib / Seaborn: Wizualizacja danych w celu zrozumienia korelacji.
-* Jupyter Notebook: Środowisko pracy, podzielone na moduły dla zachowania czytelności kodu.
+# Technologies and Tools
+The following data science libraries were used in the project:
+* Pandas / NumPy: Data manipulation, cleaning, and operations on data frames.
+* Scikit-learn: Building regression models, data preprocessing, and validation.
+* Matplotlib / Seaborn: Data visualization to understand correlations.
+* Jupyter Notebook: A working environment divided into modules to maintain code readability.
 
-# Architektura i Proces Przetwarzania
-Struktura projektu została podzielona na logiczne etapy, co ułatwia zarządzanie kodem:
-1. Analiza Danych: Analiza rozkładu zmiennej celowej (SalePrice) i sprawdzenie skośności danych. Identyfikacja i wizualizacja korelacji między cechami a ceną. Wykrywanie i usuwanie wartości odstających (outliers), które mogłyby negatywnie wpłynąć na model.
-2. Transformacja zmiennych: Logarytmowanie zmiennych skośnych w celu zbliżenia ich rozkładu do normalnego.
-3. Kodowanie zmiennych kategorycznych: Zastosowanie technik takich jak One-Hot Encoding lub Label Encoding dla danych tekstowych.
-4. Tworzenie nowych cech: Agregacja istniejących danych.
-5. Modelowanie i ewaluacja i testowanie różnych algorytmów regresji. Zastosowanie walidacji krzyżowej (Cross-Validation) w celu uniknięcia przeuczenia (overfittingu). Strojenie hiperparametrów modeli w celu optymalizacji błędu (minimalizacja RMSE - Root Mean Squared Error).
+# Architecture and Processing Workflow
+The project structure was divided into logical stages to facilitate code management:
+1. Data Analysis: Analysis of the distribution of the target variable (SalePrice) and checking for skewness in the data. Identification and visualization of correlations between features and price. Detection and removal of outliers that could negatively impact the model.
+2. Variable Transformation: Logarithmizing skewed variables to bring their distribution closer to normal.
+3. Encoding Categorical Variables: Applying techniques such as One-Hot Encoding or Label Encoding for text data.
+4. Creating New Features: Aggregating existing data.
+5. Modeling, evaluation, and testing of various regression algorithms. Use of cross-validation to avoid overfitting. Tuning model hyperparameters to optimize the error (minimizing RMSE—Root Mean Squared Error).
