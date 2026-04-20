@@ -1,64 +1,59 @@
 # 🏠 House Prices Prediction - Model Training Pipeline
 
-## 1. Przegląd Projektu
+## 1. Project Overview
 
-Ten moduł odpowiada za trenowanie modelu regresji (XGBoost) w celu przewidywania cen nieruchomości. Proces opiera się na danych wcześniej przetworzonych w module *Feature Engineering*. Głównym celem jest minimalizacja błędu RMSE (Root Mean Squared Error) na wartościach które zostały znormalizowane za pomocą metodą logarytmiczną przy użyciu optymalizacji hiperparametrów.
+This module is responsible for training the regression model (XGBoost) to predict real estate prices. The process relies on data previously processed in the *Feature Engineering* module. The main goal is to minimize the RMSE (Root Mean Squared Error) on values that have been normalized using the logarithmic method through hyperparameter optimization.
 
-## 2. Wykorzystane Technologie
+## 2. Technologies Used
 
-**Silnik modelu:** XGBoost (Extreme Gradient Boosting)
+**Model Engine:** XGBoost (Extreme Gradient Boosting)
 
-  – Wybrany ze względu na wysoką wydajność na danych.
-  – Jest to popularna biblioteka, co umożliwiło my szybsze znalezienie potrzebnych mi treści do nauki 
+  – Selected for its high performance on the data.
+  – It is a popular library, which allowed me to find the necessary learning materials more quickly 
  
-**Optymalizacja:** Optuna – framework do automatycznego dostrajania hiperparametrów.
+**Optimization:** Optuna – a framework for automatic hyperparameter tuning.
 
-**Walidacja:** Scikit-learn (KFold, train_test_split, metrics).
+**Validation:** Scikit-learn (KFold, train_test_split, metrics).
 
-**Analiza:** Pandas, NumPy, Seaborn.
+**Analysis:** Pandas, NumPy, Seaborn.
 
-## 3. Strategia Walidacji i Trenowania
+## 3. Validation and Training Strategy
 
-Aby zapewnić rzetelną ocenę modelu i uniknąć przeuczenia (overfittingu) na małym zbiorze danych, zastosowałem następujące techniki:
+To ensure a reliable evaluation of the model and avoid overfitting on a small dataset, I used the following techniques:
 
-### A. Przetwarzanie Typów Danych
+### A. Data Type Processing
 
-Przed trenowaniem następuje ostateczna konwersja typów danych:
+Before training, a final data type conversion takes place:
 
-* Zmienne kategoryczne są rzutowane na typ `category`, aby wykorzystać natywną obsługę kodowania danych przez XGBoost (`enable_categorical=True`).
+* Categorical variables are cast to the `category` type to take advantage of XGBoost’s native support for data encoding (`enable_categorical=True`).
 
-    * Dzięki automatycznemu kodowaniu w XGboost nie byłem zmuszony na wykonywanie prostych kodowań które zabierały by mi czas a nie uczyły mnie czegokolwiek innego.
+    * Thanks to XGBoost’s automatic encoding, I didn’t have to perform simple encodings that would have taken up my time without teaching me anything else.
 
-* Specyficzne kolumny numeryczne, takie jak `MSSubClass`, są traktowane jako kategoryczne, ponieważ ich wartości liczbowe reprezentują kody klas, a nie wartości ciągłe. Tak została objąsniona ta kolumna w dokumencie opisującym dane w tabeli.
+* Specific numeric columns, such as `MSSubClass`, are treated as categorical because their numerical values represent class codes rather than continuous values. This is how the column was described in the document detailing the table data.
 
 
-### B. Walidacja Krzyżowa (Cross-Validation)
+### B. Cross-Validation
 
-Zastosowano metodę **K-Fold Cross-Validation** z podziałem na 5 części ().
+The **K-Fold Cross-Validation** method was used, dividing the data into 5 parts ().
 
-* **Cel:** Każda próbka danych jest używana zarówno do trenowania, jak i walidacji.
+* **Objective:** Each data sample is used for both training and validation.
 
-**Zastosowanie:** Wewnątrz funkcji celu (objective function) Optuny, błąd RMSE jest uśredniany z 5 foldów, co daje bardziej stabilną metrykę niż pojedynczy podział train/test.
+**Application:** Within Optune’s objective function, the RMSE error is averaged across the 5 folds, resulting in a more stable metric than a single train/test split.
 
-## 4. Optymalizacja Hiperparametrów (Optuna)
+## 4. Hyperparameter Optimization (Optuna)
 
-Model jest dostrajany przy użyciu biblioteki Optuna z bazą danych SQLite do przechowywania historii prób. Optymalizowana funkcja celu minimalizuje średni błąd RMSE.
+The model is fine-tuned using the Optuna library with an SQLite database to store the history of trials. The optimized objective function minimizes the mean RMSE error.
 
-**Kluczowe parametry podlegające optymalizacji:**
+**Key parameters subject to optimization:**
 
-**Struktura drzewa:** `max_depth`, `max_leaves`, `min_child_weight` – kontrola złożoności modelu.
+**Tree structure:** `max_depth`, `max_leaves`, `min_child_weight` – control of model complexity.
 
-**Uczenie:** `learning_rate`, `n_estimators` – szybkość uczenia i liczba drzew.
+**Training:** `learning_rate`, `n_estimators` – learning rate and number of trees.
 
-**Regularyzacja:** `reg_alpha` (L1), `reg_lambda` (L2), `gamma` – zapobieganie przeuczeniu.
+**Regularization:** `reg_alpha` (L1), `reg_lambda` (L2), `gamma` – preventing overfitting.
 
-**Metoda boostingu:** Testowanie wariantów `gbtree` oraz `dart`.
+**Boosting method:** Testing the `gbtree` and `dart` variants.
 
-## 5. Wyniki i Interpretacja Modelu
+## 5. Results and Model Interpretation
 
-Po zakończeniu optymalizacji trenowany jest ostateczny model na pełnym zbiorze danych przy użyciu najlepszych znalezionych parametrów.
-
-### Najważniejsze cechy (Feature Importance)
-
-Analiza ważności cech wskazuje, że kluczowymi czynnikami wpływającymi na cenę są :
-
+After optimization is complete, the final model is trained on the full dataset using the best parameters found.
